@@ -54,7 +54,7 @@ public class FavWindow : EditorWindow
         {
             if (GUILayout.Button("Create Favourites"))
             {
-                currentList = ScriptableObjManager.CreateScriptable<FavList>("Assets/Unity+/Favourites/List/", "Your_favourites");
+                currentList = ScriptableObjManager.CreateScriptable<FavList>("Resources/List/", "Your_favourites");
                 currentList.favs = new List<Object>();
                 
             }

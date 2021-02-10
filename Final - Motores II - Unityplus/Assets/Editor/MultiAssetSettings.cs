@@ -13,7 +13,7 @@ public class MultiAssetSettings : ScriptableObject
     public bool _zRotate;
 
     public bool _xScale;
-    public bool _ySclae;
+    public bool _yScale;
     public bool _zScale;
 
     public float _deegreesRotationA;
@@ -24,5 +24,5 @@ public class MultiAssetSettings : ScriptableObject
 
     public bool _RotateOnWorldAxis;
     public string CurrentStateR;
-    Space RotationSpace = Space.Self;
+    public Space RotationSpace;
 }

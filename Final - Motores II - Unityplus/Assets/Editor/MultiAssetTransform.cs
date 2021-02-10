@@ -19,7 +19,7 @@ public class MultiAssetTransform : Editor
     bool _zRotate;
 
     bool _xScale;
-    bool _ySclae;
+    bool _yScale;
     bool _zScale;
 
     float _deegreesRotationA;
@@ -82,7 +82,7 @@ public class MultiAssetTransform : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 15;
             _xScale = EditorGUILayout.Toggle("X", _xScale, GUILayout.ExpandWidth(false));
-            _ySclae = EditorGUILayout.Toggle("Y", _ySclae, GUILayout.ExpandWidth(false));
+            _yScale = EditorGUILayout.Toggle("Y", _yScale, GUILayout.ExpandWidth(false));
             _zScale = EditorGUILayout.Toggle("Z", _zScale, GUILayout.ExpandWidth(false));
             EditorGUIUtility.labelWidth = 0;
             EditorGUILayout.EndHorizontal();
@@ -104,7 +104,7 @@ public class MultiAssetTransform : Editor
                 if (_xScale)
                     foreach (var item in Selection.gameObjects)
                         item.transform.localScale += new Vector3(Random.Range(_UnitsScaleA, _UnitsScaleB),0,0);
-                if (_ySclae)
+                if (_yScale)
                     foreach (var item in Selection.gameObjects)
                         item.transform.localScale += new Vector3(0,Random.Range(_UnitsScaleA, _UnitsScaleB),0);
                 if(_zScale)
@@ -112,6 +112,33 @@ public class MultiAssetTransform : Editor
                         item.transform.localScale += new Vector3(0, 0,Random.Range(_UnitsScaleA, _UnitsScaleB));
             }
         }
+
+        if(GUILayout.Button("Save"))
+        {
+            MultiAssetSettings Name = ScriptableObjManager.CreateScriptable<MultiAssetSettings>("Resources", "name");
+            SaveSettings(Name);
+        }
         EditorGUILayout.EndFadeGroup();
+    }
+    void SaveSettings(MultiAssetSettings MultiAS)
+    {
+        MultiAS._xRotate = _xRotate;
+        MultiAS._yRotate = _yRotate;
+        MultiAS._zRotate = _zRotate;
+
+        MultiAS._xScale = _xScale;
+        MultiAS._yScale = _yScale;
+        MultiAS._zScale = _zScale;
+
+        MultiAS._deegreesRotationA = _deegreesRotationA;
+        MultiAS._deegreesRotationB = _deegreesRotationB;
+
+        MultiAS._UnitsScaleA = _UnitsScaleA;
+        MultiAS._UnitsScaleB = _UnitsScaleB;
+
+        MultiAS._RotateOnWorldAxis = _RotateOnWorldAxis;
+
+        MultiAS.CurrentStateR = CurrentStateR;
+        MultiAS.RotationSpace = RotationSpace;
     }
 }
