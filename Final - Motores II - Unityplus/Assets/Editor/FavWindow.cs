@@ -50,7 +50,7 @@ public class FavWindow : EditorWindow
 
     private void OnGUI()
     {
-        if (AssetDatabase.FindAssets("Your_favourites").Length == 0)
+        if (AssetDatabase.FindAssets("List/Your_favourites").Length == 0)
         {
             if (GUILayout.Button("Create Favourites"))
             {
