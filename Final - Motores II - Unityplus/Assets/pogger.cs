@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class pogger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float LevelOfAggression;
+    public float LevelOfIntelligence;
+    public float LevelOfStrength;
+    public float LevelofAgility;
+    public float LevelOfPerception;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int numbe;
+
+    public GameObject head;
+    public GameObject RightHand;
+    public GameObject LeftHand;
+    public GameObject LeftEyebrow;
+    public GameObject RightEyebrow;
+    public GameObject Mouth;
+    public GameObject Eyes;
+    //public GameObject EyesBase;
+    public GameObject LeftLeg;
+    public GameObject RightLeg;
+    public List<GameObject> Hats = new List<GameObject>();
 }
