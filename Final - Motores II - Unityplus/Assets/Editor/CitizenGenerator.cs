@@ -11,7 +11,9 @@ public class CitizenGenerator : EditorWindow
     private GUIStyle _labelStyle;
     private GUIStyle _centeredMiniLabel;
 
-    private pogger _prefabBase;
+    public pogger prefabBase;
+    private pogger _baseClone;
+
     private GameObject _preCheck;
 
     private bool _isOnScreen;
@@ -85,18 +87,14 @@ public class CitizenGenerator : EditorWindow
 
         //ActivationButton();
 
-        using (new EditorGUI.DisabledScope(_prefabBase == true)) //
-            _prefabBase = (pogger)EditorGUILayout.ObjectField("Citizen", _prefabBase, typeof(pogger), true); //
+        //using (new EditorGUI.DisabledScope(prefabBase == true)) //
+            //prefabBase = (pogger)EditorGUILayout.ObjectField("Citizen", prefabBase, typeof(pogger), true); //
 
-        if (_prefabBase == true)
+        if (prefabBase == true)
         {
             EditorGUILayout.Space();
 
             EditorGUILayout.Space();
-
-            //EditorGUILayout.Space();
-
-            //EditorGUILayout.Space();
 
             EditorGUI.DrawRect(GUILayoutUtility.GetRect(100, 2), Color.grey);
 
@@ -118,26 +116,11 @@ public class CitizenGenerator : EditorWindow
 
             PrefabSaver();
         }
-
-        //var byttonToCreate = GUILayout.Button("Create");
     }
 
     private void ActivationButton() //NOT FUNCIONANDO
     {
-        string _nameOfTheBase = "MAINBASE";
-        var funnyButton = GUILayout.Button("ayuda");
-
-        if (funnyButton)
-        {
-            for (var i = 0; i < _typesList.Length; i++)
-            {
-                if (_typesList[i].gameObject.name == _nameOfTheBase)
-                {
-                    _prefabBase = _typesList[i];
-                }
-            }
-        }
-
+        //var funnyButton = GUILayout.Button("ayuda");
 
         /*
 
@@ -160,22 +143,22 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Aggression", _labelStyle);
 
-        _prefabBase.LevelOfAggression = EditorGUILayout.Slider(_prefabBase.LevelOfAggression, 0, 10);
+        prefabBase.LevelOfAggression = EditorGUILayout.Slider(prefabBase.LevelOfAggression, 0, 10);
 
-        _prefabBase.LevelOfAggression = Mathf.Round(_prefabBase.LevelOfAggression * 10) * 0.1f;
+        prefabBase.LevelOfAggression = Mathf.Round(prefabBase.LevelOfAggression * 10) * 0.1f;
 
-        if (_prefabBase.LevelOfAggression > 5)
+        if (prefabBase.LevelOfAggression > 5)
         {
-            _prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -180, 0);
-            _prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -19.804f, 80);
-            _prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 25.196f, 80);
+            prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -180, 0);
+            prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -19.804f, 80);
+            prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 25.196f, 80);
         }
 
-        else if (_prefabBase.LevelOfAggression <= 5)
+        else if (prefabBase.LevelOfAggression <= 5)
         {
-            _prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -0, 0);
-            _prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -5.507f, 160);
-            _prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 10.196f, 160);
+            prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -0, 0);
+            prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -5.507f, 160);
+            prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 10.196f, 160);
         }
 
         EditorGUILayout.Space();
@@ -191,14 +174,14 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Intelligence", _labelStyle);
 
-        _prefabBase.LevelOfIntelligence = EditorGUILayout.Slider(_prefabBase.LevelOfIntelligence, 0, 10);
+        prefabBase.LevelOfIntelligence = EditorGUILayout.Slider(prefabBase.LevelOfIntelligence, 0, 10);
 
-        _prefabBase.LevelOfIntelligence = Mathf.Round(_prefabBase.LevelOfIntelligence * 10) * 0.1f;
+        prefabBase.LevelOfIntelligence = Mathf.Round(prefabBase.LevelOfIntelligence * 10) * 0.1f;
 
-        if (_prefabBase.LevelOfIntelligence > 3)
-            _prefabBase.head.transform.localScale = new Vector3(_prefabBase.LevelOfIntelligence / 3, _prefabBase.LevelOfIntelligence / 3, _prefabBase.LevelOfIntelligence / 3);
-        else if (_prefabBase.LevelOfIntelligence <= 3)
-            _prefabBase.head.transform.localScale = new Vector3(1, 1, 1);
+        if (prefabBase.LevelOfIntelligence > 3)
+            prefabBase.head.transform.localScale = new Vector3(prefabBase.LevelOfIntelligence / 3, prefabBase.LevelOfIntelligence / 3, prefabBase.LevelOfIntelligence / 3);
+        else if (prefabBase.LevelOfIntelligence <= 3)
+            prefabBase.head.transform.localScale = new Vector3(1, 1, 1);
 
         EditorGUILayout.Space();
 
@@ -213,19 +196,19 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Streght", _labelStyle);
 
-        _prefabBase.LevelOfStrength = EditorGUILayout.Slider(_prefabBase.LevelOfStrength, 0, 10);
+        prefabBase.LevelOfStrength = EditorGUILayout.Slider(prefabBase.LevelOfStrength, 0, 10);
 
-        _prefabBase.LevelOfStrength = Mathf.Round(_prefabBase.LevelOfStrength * 10) * 0.1f;
+        prefabBase.LevelOfStrength = Mathf.Round(prefabBase.LevelOfStrength * 10) * 0.1f;
 
-        if (_prefabBase.LevelOfStrength > 3)
+        if (prefabBase.LevelOfStrength > 3)
         {
-            _prefabBase.RightHand.transform.localScale = new Vector3(_prefabBase.LevelOfStrength / 3, _prefabBase.LevelOfStrength / 3, _prefabBase.LevelOfStrength / 3);
-            _prefabBase.LeftHand.transform.localScale = new Vector3(_prefabBase.LevelOfStrength / 3, _prefabBase.LevelOfStrength / 3, _prefabBase.LevelOfStrength / 3);
+            prefabBase.RightHand.transform.localScale = new Vector3(prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3);
+            prefabBase.LeftHand.transform.localScale = new Vector3(prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3);
         }
-        else if (_prefabBase.LevelOfStrength <= 3)
+        else if (prefabBase.LevelOfStrength <= 3)
         {
-            _prefabBase.RightHand.transform.localScale = new Vector3(1, 1, 1);
-            _prefabBase.LeftHand.transform.localScale = new Vector3(1, 1, 1);
+            prefabBase.RightHand.transform.localScale = new Vector3(1, 1, 1);
+            prefabBase.LeftHand.transform.localScale = new Vector3(1, 1, 1);
         }
 
         EditorGUILayout.Space();
@@ -241,19 +224,19 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Agility", _labelStyle);
 
-        _prefabBase.LevelofAgility = EditorGUILayout.Slider(_prefabBase.LevelofAgility, 0, 10);
+        prefabBase.LevelofAgility = EditorGUILayout.Slider(prefabBase.LevelofAgility, 0, 10);
 
-        _prefabBase.LevelofAgility = Mathf.Round(_prefabBase.LevelofAgility * 10) * 0.1f;
+        prefabBase.LevelofAgility = Mathf.Round(prefabBase.LevelofAgility * 10) * 0.1f;
 
-        if (_prefabBase.LevelofAgility > 3)
+        if (prefabBase.LevelofAgility > 3)
         {
-            _prefabBase.RightLeg.transform.localScale = new Vector3(1, _prefabBase.LevelofAgility / 6, 1);
-            _prefabBase.LeftLeg.transform.localScale = new Vector3(1, _prefabBase.LevelofAgility / 6, 1);
+            prefabBase.RightLeg.transform.localScale = new Vector3(1, prefabBase.LevelofAgility / 6, 1);
+            prefabBase.LeftLeg.transform.localScale = new Vector3(1, prefabBase.LevelofAgility / 6, 1);
         }
-        else if (_prefabBase.LevelofAgility <= 3)
+        else if (prefabBase.LevelofAgility <= 3)
         {
-            _prefabBase.RightLeg.transform.localScale = new Vector3(1, 1, 1);
-            _prefabBase.LeftLeg.transform.localScale = new Vector3(1, 1, 1);
+            prefabBase.RightLeg.transform.localScale = new Vector3(1, 1, 1);
+            prefabBase.LeftLeg.transform.localScale = new Vector3(1, 1, 1);
         }
 
         EditorGUILayout.Space();
@@ -300,9 +283,9 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Hats", _labelStyle);
 
-        _prefabBase.numbe = EditorGUILayout.IntSlider(_prefabBase.numbe, 0, 9);
+        prefabBase.numbe = EditorGUILayout.IntSlider(prefabBase.numbe, 0, 9);
 
-        switch (_prefabBase.numbe)
+        switch (prefabBase.numbe)
         {
             case 0:
                 CleanHats();
@@ -310,53 +293,53 @@ public class CitizenGenerator : EditorWindow
 
             case 1:
                 CleanHats();
-                _prefabBase.Hats[0].SetActive(true);
+                prefabBase.Hats[0].SetActive(true);
                 break;
 
             case 2:
                 CleanHats();
-                _prefabBase.Hats[1].SetActive(true);
+                prefabBase.Hats[1].SetActive(true);
                 break;
 
             case 3:
                 CleanHats();
-                _prefabBase.Hats[2].SetActive(true);
+                prefabBase.Hats[2].SetActive(true);
                 break;
 
             case 4:
                 CleanHats();
-                _prefabBase.Hats[3].SetActive(true);
+                prefabBase.Hats[3].SetActive(true);
                 break;
 
             case 5:
                 CleanHats();
-                _prefabBase.Hats[4].SetActive(true);
+                prefabBase.Hats[4].SetActive(true);
                 break;
 
             case 6:
                 CleanHats();
-                _prefabBase.Hats[5].SetActive(true);
+                prefabBase.Hats[5].SetActive(true);
                 break;
 
             case 7:
                 CleanHats();
-                _prefabBase.Hats[6].SetActive(true);
+                prefabBase.Hats[6].SetActive(true);
                 break;
 
             case 8:
                 CleanHats();
-                _prefabBase.Hats[7].SetActive(true);
+                prefabBase.Hats[7].SetActive(true);
                 break;
 
             case 9:
                 CleanHats();
-                _prefabBase.Hats[8].SetActive(true);
+                prefabBase.Hats[8].SetActive(true);
                 break;
         }
 
         void CleanHats()
         {
-            foreach (GameObject objet in _prefabBase.Hats)
+            foreach (GameObject objet in prefabBase.Hats)
             {
                 objet.SetActive(false);
             }
@@ -371,7 +354,7 @@ public class CitizenGenerator : EditorWindow
 
     private void PrefabSaver()
     {
-        var currentPath = AssetDatabase.GetAssetPath(_prefabBase);
+        var currentPath = AssetDatabase.GetAssetPath(prefabBase);
 
         EditorGUILayout.Space();
 
@@ -383,11 +366,11 @@ public class CitizenGenerator : EditorWindow
 
         if (saveButton && name != "" && name != " ")
         {
-            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(_prefabBase), "Assets/" + name + ".prefab");
+            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(prefabBase), "Assets/" + name + ".prefab");
             Reseter();
-            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            AssetDatabase.OpenAsset(_prefabBase);
+            AssetDatabase.OpenAsset(prefabBase);
+            prefabBase.numbe = 0;
         }
     }
 
@@ -395,25 +378,25 @@ public class CitizenGenerator : EditorWindow
     {
         if (!_isOnScreen)
         {
-            AssetDatabase.OpenAsset(_prefabBase);
+            AssetDatabase.OpenAsset(prefabBase);
             _isOnScreen = true;
         }
     }
 
     private void Reseter()
     {
-        _prefabBase.LevelOfAggression = 3;
-        _prefabBase.LevelofAgility = 3;
-        _prefabBase.LevelOfIntelligence = 3;
-        _prefabBase.LevelOfPerception = 3;
-        _prefabBase.LevelOfStrength = 3;
+        prefabBase.LevelOfAggression = 3;
+        prefabBase.LevelofAgility = 3;
+        prefabBase.LevelOfIntelligence = 3;
+        prefabBase.LevelOfPerception = 3;
+        prefabBase.LevelOfStrength = 3;
     }
 
     public void UpdateDatabase()
     {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        AssetDatabase.OpenAsset(_prefabBase);
+        AssetDatabase.OpenAsset(prefabBase);
     }
 
     public void IntensityApplayer()

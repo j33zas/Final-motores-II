@@ -3244,11 +3244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ddca3d18bd8954e9ec4d4bfa170ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelOfAggression: 1.2
-  LevelOfIntelligence: 0
-  LevelOfStrength: 0
-  LevelofAgility: 0
-  LevelOfPerception: 0
+  LevelOfAggression: 3
+  LevelOfIntelligence: 3
+  LevelOfStrength: 3
+  LevelofAgility: 3
+  LevelOfPerception: 3
   numbe: 0
   head: {fileID: 6582441206417720321}
   RightHand: {fileID: 2900047551568800602}
