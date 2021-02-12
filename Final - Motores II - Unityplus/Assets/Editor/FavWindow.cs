@@ -50,16 +50,16 @@ public class FavWindow : EditorWindow
 
     private void OnGUI()
     {
-        if (AssetDatabase.FindAssets("List/Your_favourites").Length == 0)
-        {
-            if (GUILayout.Button("Create Favourites"))
-            {
-                currentList = ScriptableObjManager.CreateScriptable<FavList>("Resources/List/", "Your_favourites");
-                currentList.favs = new List<Object>();
+        //if (AssetDatabase.FindAssets("List/Your_favourites.asset").Length == 0)
+        //{
+        //    if (GUILayout.Button("Create Favourites"))
+        //    {
+        //        currentList = ScriptableObjManager.CreateScriptable<FavList>("Resources/List/", "Your_favourites");
+        //        currentList.favs = new List<Object>();
                 
-            }
-            return;
-        }
+        //    }
+        //    return;
+        //}
         if (!currentList)
             currentList = (FavList)EditorGUILayout.ObjectField(currentList, typeof(FavList), false);
 

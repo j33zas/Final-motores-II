@@ -6,7 +6,7 @@ using System.Linq;
 
 public class MultiAssetProfileWindow : EditorWindow
 {
-    MultiAssetSettings _currentSettings;
+    public MultiAssetSettings currentSettings;
 
     bool _showSearches;
 
@@ -15,6 +15,8 @@ public class MultiAssetProfileWindow : EditorWindow
     string _searchQuery;
 
     List<MultiAssetSettings> _searchResults = new List<MultiAssetSettings>();
+
+    GUIStyle SeparatorStyle;
 
     [MenuItem("Unity+/MultiAssetProfile &M")]
     public static void OpenWindow()
@@ -25,52 +27,107 @@ public class MultiAssetProfileWindow : EditorWindow
 
     private void OnEnable()
     {
+        SeparatorStyle = new GUIStyle();
+        SeparatorStyle.fontSize = 15;
+        SeparatorStyle.fontStyle = FontStyle.Bold;
+        SeparatorStyle.alignment = TextAnchor.MiddleCenter;
+        SeparatorStyle.normal.textColor = Color.grey;
 
+        _showSearches = true;
+
+        if (Resources.Load("MultiAT/LastSettings"))
+            currentSettings = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
+        else
+            ScriptableObjectUtility.CreateAsset<MultiAssetSettings>("Assets/Resources/MultiAT/", "LastSettings");
     }
+
     private void OnGUI()
     {
-        EditorGUILayout.LabelField("search");
-        EditorGUILayout.BeginHorizontal();
-        _searchQuery = EditorGUILayout.TextField(_searchQuery);
-        if (GUILayout.Button("Search", GUILayout.Width(50), GUILayout.Height(18)) || Input.GetKeyDown(KeyCode.Return))
-            _showSearches = true;
-        EditorGUILayout.EndHorizontal();
         if (_showSearches)
             SearchBar();
+        else
+            if(currentSettings)
+            {
+                EditorGUI.DrawRect(GUILayoutUtility.GetRect(300, 1), Color.grey);
+                EditorGUILayout.LabelField("Rotation", SeparatorStyle);
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUIUtility.labelWidth = 15;
+                currentSettings._xRotate = EditorGUILayout.Toggle("X", currentSettings._xRotate, GUILayout.ExpandWidth(false));
+                currentSettings._yRotate = EditorGUILayout.Toggle("Y", currentSettings._yRotate, GUILayout.ExpandWidth(false));
+                currentSettings._zRotate = EditorGUILayout.Toggle("Z", currentSettings._zRotate, GUILayout.ExpandWidth(false));
+                EditorGUIUtility.labelWidth = 0;
+                EditorGUILayout.EndHorizontal();
+
+                currentSettings._deegreesRotationB = EditorGUILayout.FloatField("min Deegrees", currentSettings._deegreesRotationB, GUILayout.ExpandWidth(false));
+                currentSettings._deegreesRotationA = EditorGUILayout.FloatField("max Deegrees", currentSettings._deegreesRotationA, GUILayout.ExpandWidth(false));
+
+                currentSettings._RotateOnWorldAxis = EditorGUILayout.Toggle("Rotating on " + currentSettings.CurrentStateR + " axis", currentSettings._RotateOnWorldAxis);
+                if (currentSettings._RotateOnWorldAxis)
+                {
+                    currentSettings.CurrentStateR = "WORLD";
+                    currentSettings.RotationSpace = Space.World;
+                }
+                else
+                {
+                    currentSettings.CurrentStateR = "LOCAL";
+                    currentSettings.RotationSpace = Space.Self;
+                }
+                //----------------------------------------------------------------------------------------------------------------------
+                EditorGUI.DrawRect(GUILayoutUtility.GetRect(300, 1), Color.grey);
+                EditorGUILayout.LabelField("Scale", SeparatorStyle);
+                //----------------------------------------------------------------------------------------------------------------------
+                EditorGUILayout.BeginHorizontal();
+                EditorGUIUtility.labelWidth = 15;
+                currentSettings._xScale = EditorGUILayout.Toggle("X", currentSettings._xScale, GUILayout.ExpandWidth(false));
+                currentSettings._yScale = EditorGUILayout.Toggle("Y", currentSettings._yScale, GUILayout.ExpandWidth(false));
+                currentSettings._zScale = EditorGUILayout.Toggle("Z", currentSettings._zScale, GUILayout.ExpandWidth(false));
+                EditorGUIUtility.labelWidth = 0;
+                EditorGUILayout.EndHorizontal();
+
+                currentSettings._UnitsScaleB = EditorGUILayout.FloatField("min Scale", currentSettings._UnitsScaleB, GUILayout.ExpandWidth(false));
+                currentSettings._UnitsScaleA = EditorGUILayout.FloatField("max Scale", currentSettings._UnitsScaleA, GUILayout.ExpandWidth(false));
+            }
+
     }
     void SearchBar()
     {
-        _searchResults.Clear();
-        List<string> paths = new List<string>(AssetDatabase.FindAssets(_searchQuery)).Where(x => x.GetType() == typeof(MultiAssetSettings)).ToList();
-        if(paths.Count > 0)
+        EditorGUILayout.LabelField("Search");
+        var _queryAux = _searchQuery;
+        _searchQuery = EditorGUILayout.TextField(_queryAux);
+        if(_queryAux != _searchQuery && _searchQuery != "")
         {
-            for (int i = 0; i < paths.Count - 1; i++)
+            _searchResults.Clear();
+            string[] paths = AssetDatabase.FindAssets(_searchQuery);
+
+            for (int i = 0; i < paths.Length; i++)
             {
-
                 paths[i] = AssetDatabase.GUIDToAssetPath(paths[i]);
-
-                MultiAssetSettings _current = (MultiAssetSettings)AssetDatabase.LoadAssetAtPath(paths[i], typeof(MultiAssetSettings));
-
-                if (_current != null && !_searchResults.Contains(_current))
-                    _searchResults.Add(_current);
+                var load = AssetDatabase.LoadAssetAtPath(paths[i], typeof(Object));
+                if(load.GetType() == typeof(MultiAssetSettings))
+                    _searchResults.Add((MultiAssetSettings)load);
             }
         }
+        else if (_searchQuery == "")
+            _searchResults.Clear();
+
         if(_searchResults.Count > 0)
         {
-            foreach (var current in _searchResults)
+            for (int i = 0; i < _searchResults.Count; i++)
             {
-                EditorGUI.DrawRect(GUILayoutUtility.GetRect(1, position.height), Color.black);
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(current.name);
-
-                if(GUILayout.Button("Load"))
+                if (_searchResults[i].GetType() == typeof(MultiAssetSettings))
                 {
-                    _currentSettings = current;
-                    var me = GetWindow<MultiAssetProfileWindow>();
-                    me.Close();
+                    EditorGUILayout.BeginHorizontal();
+
+                    EditorGUILayout.LabelField(_searchResults[i].ToString());
+                    if(GUILayout.Button("Load"))
+                    {
+                        _searchQuery = "";
+                        currentSettings = _searchResults[i];
+                        _showSearches = false;
+                    }
+                    EditorGUILayout.EndHorizontal();
                 }
-                EditorGUILayout.EndHorizontal();
             }
         }
     }
