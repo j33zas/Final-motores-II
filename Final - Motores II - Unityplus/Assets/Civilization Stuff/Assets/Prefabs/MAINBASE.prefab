@@ -3244,6 +3244,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ddca3d18bd8954e9ec4d4bfa170ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelOfAggression: 3
+  LevelOfIntelligence: 3
+  LevelOfStrength: 3
+  LevelofAgility: 3
+  LevelOfPerception: 3
+  numbe: 0
+  head: {fileID: 6582441206417720321}
+  RightHand: {fileID: 2900047551568800602}
+  LeftHand: {fileID: 3131877930111627360}
+  LeftEyebrow: {fileID: 3766570399260398642}
+  RightEyebrow: {fileID: 4810022895673098345}
+  Mouth: {fileID: 3282199095797854741}
+  Eyes: {fileID: 1254400469434504207}
+  LeftLeg: {fileID: 903437439568421611}
+  RightLeg: {fileID: 3126380750991310962}
+  Hats:
+  - {fileID: 8233911912649970610}
+  - {fileID: 2617579835746121998}
+  - {fileID: 4952278694449415271}
+  - {fileID: 3933121177224283970}
+  - {fileID: 1251637502600430373}
+  - {fileID: 9090371246120564165}
+  - {fileID: 7429572327089369256}
+  - {fileID: 871921372441341457}
 --- !u!1 &6246451087731171500
 GameObject:
   m_ObjectHideFlags: 0
