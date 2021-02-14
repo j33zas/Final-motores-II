@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultiAssetTransformUtility
 {
-    public static MultiAssetTransform SaveSettings(MultiAssetSettings MultiAS, MultiAssetTransform MultiAT)
+    public static MultiAssetTransform TransformToSettings(MultiAssetSettings MultiAS, MultiAssetTransform MultiAT)
     {
         MultiAS._xRotate = MultiAT._xRotate;
         MultiAS._yRotate = MultiAT._yRotate;
@@ -28,7 +28,7 @@ public class MultiAssetTransformUtility
         return MultiAT;
     }
 
-    public static MultiAssetSettings LoadSettings(MultiAssetSettings MultiAS, MultiAssetTransform MultiAT)
+    public static MultiAssetSettings SettingsToTransform(MultiAssetSettings MultiAS, MultiAssetTransform MultiAT)
     {
         MultiAT._xRotate = MultiAS._xRotate;
         MultiAT._yRotate = MultiAS._yRotate;
@@ -50,5 +50,27 @@ public class MultiAssetTransformUtility
         MultiAT.RotationSpace = MultiAS.RotationSpace;
 
         return MultiAS;
+    }
+
+    public static void CopySettings(MultiAssetSettings From, MultiAssetSettings To)
+    {
+        To._xRotate = From._xRotate;
+        To._yRotate = From._yRotate;
+        To._zRotate = From._zRotate;
+
+        To._xScale = From._xScale;
+        To._yScale = From._yScale;
+        To._zScale = From._zScale;
+
+        To._deegreesRotationA = From._deegreesRotationA;
+        To._deegreesRotationB = From._deegreesRotationB;
+
+        To._UnitsScaleA = From._UnitsScaleA;
+        To._UnitsScaleB = From._UnitsScaleB;
+
+        To._RotateOnWorldAxis = From._RotateOnWorldAxis;
+
+        To.CurrentStateR = From.CurrentStateR;
+        To.RotationSpace = From.RotationSpace;
     }
 }

@@ -27,7 +27,8 @@ public class MultiAssetProfileSaveWindow : EditorWindow
         var t = new GUIStyle().alignment = TextAnchor.MiddleCenter;
         if (GUILayout.Button("Save"))
         {
-            ScriptableObjManager.CreateScriptable<MultiAssetSettings>("Assets/" + _route + "/", _name);
+            var obj = ScriptableObjManager.CreateScriptable<MultiAssetSettings>("Assets/" + _route + "/", _name);
+            MultiAssetTransformUtility.CopySettings(_settings, obj);
             Close();
         }
     }

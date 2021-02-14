@@ -33,6 +33,8 @@ public class MultiAssetTransform : Editor
     public Space RotationSpace = Space.Self;
 
     GUIStyle SeparatorStyle;
+
+    Transform Trans;
     
     private void OnEnable()
     {
@@ -45,10 +47,12 @@ public class MultiAssetTransform : Editor
         _show = new AnimBool(false);
         _show.valueChanged.AddListener(Repaint);
 
+        Trans = (Transform)target;
+        
         if(Resources.Load("MultiAT/LastSettings"))
         {
             MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
-            MultiAssetTransformUtility.LoadSettings(MAT,this);
+            MultiAssetTransformUtility.SettingsToTransform(MAT,this);
         }
     }
 
@@ -57,7 +61,7 @@ public class MultiAssetTransform : Editor
         if (Resources.Load("MultiAT/LastSettings"))
         {
             MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
-            MultiAssetTransformUtility.SaveSettings(MAT,this);
+            MultiAssetTransformUtility.TransformToSettings(MAT,this);
         }
     }
 
@@ -128,29 +132,24 @@ public class MultiAssetTransform : Editor
                     foreach (var item in Selection.gameObjects)
                         item.transform.localScale += new Vector3(0, 0,Random.Range(_UnitsScaleA, _UnitsScaleB));
             }
+
             GUILayout.BeginHorizontal();
             if(GUILayout.Button("Save Profile"))
             {
                 MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
-                MultiAssetTransformUtility.SaveSettings(MAT, this);
+                MultiAssetTransformUtility.TransformToSettings(MAT, this);
                 var window = new MultiAssetProfileSaveWindow(MAT);
                 window.Show();
             }
             if(GUILayout.Button("Open Profile"))
             {
-                var window = new MultiAssetProfileWindow();
+                var window = new MultiAssetProfileWindow(this);
                 window.Show();
                 window.Focus();
-                MultiAssetTransformUtility.SaveSettings(window.currentSettings, this);
-            }
-            if(GUILayout.Button("Load Profile"))
-            {
-
+                MultiAssetTransformUtility.TransformToSettings(window.currentSettings, this);
             }
             GUILayout.EndHorizontal();
         }
         EditorGUILayout.EndFadeGroup();
     }
-
-    
 }

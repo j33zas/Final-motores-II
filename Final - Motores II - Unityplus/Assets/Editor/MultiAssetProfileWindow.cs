@@ -18,6 +18,13 @@ public class MultiAssetProfileWindow : EditorWindow
 
     GUIStyle SeparatorStyle;
 
+    MultiAssetTransform multiAT;
+
+    public MultiAssetProfileWindow(MultiAssetTransform preWindow)
+    {
+        multiAT = preWindow;
+    }
+
     [MenuItem("Unity+/MultiAssetProfile &M")]
     public static void OpenWindow()
     {
@@ -44,8 +51,11 @@ public class MultiAssetProfileWindow : EditorWindow
     private void OnGUI()
     {
         if (_showSearches)
+        {
             SearchBar();
+        }
         else
+        {
             if(currentSettings)
             {
                 EditorGUI.DrawRect(GUILayoutUtility.GetRect(300, 1), Color.grey);
@@ -88,7 +98,20 @@ public class MultiAssetProfileWindow : EditorWindow
                 currentSettings._UnitsScaleB = EditorGUILayout.FloatField("min Scale", currentSettings._UnitsScaleB, GUILayout.ExpandWidth(false));
                 currentSettings._UnitsScaleA = EditorGUILayout.FloatField("max Scale", currentSettings._UnitsScaleA, GUILayout.ExpandWidth(false));
             }
+            GUILayout.BeginHorizontal();
 
+            if(GUILayout.Button("Load"))
+            {
+                MultiAssetTransformUtility.SettingsToTransform(currentSettings, multiAT);
+                Close();
+            }
+            if(GUILayout.Button("Cancel"))
+            {
+                _showSearches = true;
+            }
+
+            GUILayout.EndHorizontal();
+        }
     }
     void SearchBar()
     {

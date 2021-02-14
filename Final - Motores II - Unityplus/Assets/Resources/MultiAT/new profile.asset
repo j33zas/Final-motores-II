@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb002bcf9bf431a43b0f6e2557b9a53b, type: 3}
-  m_Name: asd
+  m_Name: new profile
   m_EditorClassIdentifier: 
   _objSelectedAmount: 0
   _IndividualDeegrees: 0
