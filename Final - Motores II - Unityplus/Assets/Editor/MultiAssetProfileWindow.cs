@@ -28,7 +28,7 @@ public class MultiAssetProfileWindow : EditorWindow
     [MenuItem("Unity+/MultiAssetProfile &M")]
     public static void OpenWindow()
     {
-        var me = GetWindow<MultiAssetProfileWindow>();
+        var me = new MultiAssetProfileWindow(null);
         me.Show();
     }
 
@@ -103,6 +103,7 @@ public class MultiAssetProfileWindow : EditorWindow
             if(GUILayout.Button("Load"))
             {
                 MultiAssetTransformUtility.SettingsToTransform(currentSettings, multiAT);
+                AssetDatabase.SaveAssets();
                 Close();
             }
             if(GUILayout.Button("Cancel"))

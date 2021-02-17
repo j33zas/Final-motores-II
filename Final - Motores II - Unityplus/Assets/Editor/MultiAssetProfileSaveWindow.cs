@@ -29,6 +29,7 @@ public class MultiAssetProfileSaveWindow : EditorWindow
         {
             var obj = ScriptableObjManager.CreateScriptable<MultiAssetSettings>("Assets/" + _route + "/", _name);
             MultiAssetTransformUtility.CopySettings(_settings, obj);
+            AssetDatabase.SaveAssets();
             Close();
         }
     }

@@ -62,6 +62,7 @@ public class MultiAssetTransform : Editor
         {
             MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
             MultiAssetTransformUtility.TransformToSettings(MAT,this);
+            AssetDatabase.SaveAssets();
         }
     }
 
@@ -139,6 +140,7 @@ public class MultiAssetTransform : Editor
                 MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
                 MultiAssetTransformUtility.TransformToSettings(MAT, this);
                 var window = new MultiAssetProfileSaveWindow(MAT);
+                AssetDatabase.SaveAssets();
                 window.Show();
             }
             if(GUILayout.Button("Open Profile"))
@@ -152,4 +154,19 @@ public class MultiAssetTransform : Editor
         }
         EditorGUILayout.EndFadeGroup();
     }
+
+    //private void OnSceneGUI()
+    //{
+    //    GUILayout.BeginArea(new Rect(20, 20, 140, 30));
+
+    //    var rec = EditorGUILayout.BeginVertical();
+
+    //    GUI.Box(rec, GUIContent.none);
+
+    //    GUILayout.Label("Currently selecting: " + Selection.objects.Length);
+
+    //    EditorGUILayout.EndVertical();
+
+    //    GUILayout.EndArea();
+    //}
 }
