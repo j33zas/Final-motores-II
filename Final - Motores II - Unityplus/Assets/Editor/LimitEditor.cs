@@ -52,7 +52,7 @@ public class LimitEditor : Editor
         var baseCRect = new Rect(baseC.x - 40, Screen.height - baseC.y - 150, 75, 20);
         var baseDRect = new Rect(baseD.x - 40, Screen.height - baseD.y - 150, 75, 20);
 
-        if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Return Tangent A"))
+        /*if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Return Tangent A"))
         {
             _ld.tangentA.transform.position = _ld.bezierA.transform.position + new Vector3(0, 0, 2);
         }
@@ -70,7 +70,7 @@ public class LimitEditor : Editor
         if (GUI.Button(new Rect(v.width - 570, v.height - 70, 120, 50), "Return Base B"))
         {
             _ld.bezierB.transform.position = _ld.transform.position + new Vector3(0, 0, -2);
-        }
+        }*/
 
         if (saveBezier.Count >= 1)
         {
