@@ -10,7 +10,9 @@ public class NewLimitEditor : Editor
 {
     List<Vector3> saveBezier = new List<Vector3>();
 
-    List<GameObject> myWaypoints = new List<GameObject>();
+    List<GameObject> myNodes = new List<GameObject>();
+
+    bool randomBool;
 
     private NewLimitDefiner _nld;
 
@@ -36,11 +38,26 @@ public class NewLimitEditor : Editor
         if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Add node"))
         {
             Debug.Log("nodo agregado");
-            //PrefabUtility.InstantiatePrefab(_nld.Prefab);
             Instantiate(_nld.Prefab, new Vector3(0,0,0), Quaternion.identity, _nld.transform);
         }
 
-        GUI.TextArea(nodeRect, "NODO");
+        if(_nld.transform.childCount >= 2 && randomBool == false)
+        {
+            foreach(GameObject child in _nld.transform)
+            {
+                myNodes.Add(child);
+                _nld.newNodes.Add(child);
+            }
+
+            randomBool = true;
+        }
+
+        if (_nld.newNodes.Count >= 2)
+        {
+            _nld.Prefab = _nld.newNodes[0];
+        }
+
+            GUI.TextArea(nodeRect, "NODO");
 
         Handles.EndGUI();
 
