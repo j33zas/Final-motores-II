@@ -154,19 +154,4 @@ public class MultiAssetTransform : Editor
         }
         EditorGUILayout.EndFadeGroup();
     }
-
-    //private void OnSceneGUI()
-    //{
-    //    GUILayout.BeginArea(new Rect(20, 20, 140, 30));
-
-    //    var rec = EditorGUILayout.BeginVertical();
-
-    //    GUI.Box(rec, GUIContent.none);
-
-    //    GUILayout.Label("Currently selecting: " + Selection.objects.Length);
-
-    //    EditorGUILayout.EndVertical();
-
-    //    GUILayout.EndArea();
-    //}
 }

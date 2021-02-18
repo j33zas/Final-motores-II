@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-[CustomEditor(typeof(pogger))]
+[CustomEditor(typeof(Citizen))]
 public class CitizenGenerator : EditorWindow
 {
     private GUIStyle _titleStyle;
     private GUIStyle _labelStyle;
     private GUIStyle _centeredMiniLabel;
 
-    public pogger prefabBase;
-    private pogger _baseClone;
+    public Citizen prefabBase;
+    private Citizen _baseClone;
 
     private GameObject _preCheck;
 
@@ -22,7 +22,7 @@ public class CitizenGenerator : EditorWindow
 
     private string _civilizationName;
 
-    public pogger[] _typesList; //= GameObject.FindObjectsOfType<BaseCitizenScript>();
+    public Citizen[] _typesList; //= GameObject.FindObjectsOfType<BaseCitizenScript>();
 
     bool _baseWasFound;
 
@@ -35,7 +35,7 @@ public class CitizenGenerator : EditorWindow
 
     private void OnEnable()
     {
-        _typesList = GameObject.FindObjectsOfType<pogger>();
+        _typesList = GameObject.FindObjectsOfType<Citizen>();
 
         _labelStyle = new GUIStyle();
         _labelStyle.fontStyle = FontStyle.Bold;

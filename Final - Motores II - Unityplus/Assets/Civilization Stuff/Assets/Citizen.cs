@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pogger : MonoBehaviour
+public class Citizen : MonoBehaviour
 {
     public float LevelOfAggression;
     public float LevelOfIntelligence;
