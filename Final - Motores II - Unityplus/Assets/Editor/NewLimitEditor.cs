@@ -12,8 +12,6 @@ public class NewLimitEditor : Editor
 
     List<GameObject> myNodes = new List<GameObject>();
 
-    bool randomBool;
-
     private NewLimitDefiner _nld;
 
     private void OnEnable()
@@ -41,23 +39,31 @@ public class NewLimitEditor : Editor
             Instantiate(_nld.Prefab, new Vector3(0,0,0), Quaternion.identity, _nld.transform);
         }
 
-        if(_nld.transform.childCount >= 2 && randomBool == false)
+        if(_nld.transform.childCount >= 2)
         {
-            foreach(GameObject child in _nld.transform)
+            for (int i = 0; i < _nld.transform.childCount; i++)
             {
-                myNodes.Add(child);
-                _nld.newNodes.Add(child);
-            }
+                var objCurrent = _nld.transform.GetChild(i).gameObject;
 
-            randomBool = true;
+                if (!myNodes.Contains(objCurrent) && !_nld.newNodes.Contains(objCurrent))
+                {
+                    myNodes.Add(objCurrent);
+                    _nld.newNodes.Add(objCurrent);
+                }           
+            }
         }
 
         if (_nld.newNodes.Count >= 2)
         {
-            _nld.Prefab = _nld.newNodes[0];
+            _nld.Prefab = _nld.newNodes[_nld.newNodes.Count - 1];
+            _nld.oldPrefab = _nld.newNodes[_nld.newNodes.Count - 2];
+
+            Handles.color = Color.blue;
+
+            Handles.DrawLine(_nld.oldPrefab.transform.position, _nld.Prefab.transform.position);
         }
 
-            GUI.TextArea(nodeRect, "NODO");
+        GUI.TextArea(nodeRect, "NODO");
 
         Handles.EndGUI();
 

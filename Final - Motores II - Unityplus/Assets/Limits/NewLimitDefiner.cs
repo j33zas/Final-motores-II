@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewLimitDefiner : MonoBehaviour
 {
     public GameObject Prefab;
-    public GameObject newPrefab;
+    public GameObject oldPrefab;
 
     public List<GameObject> newNodes = new List<GameObject>();
 }
