@@ -11,7 +11,7 @@ public class CitizenGenerator : EditorWindow
     private GUIStyle _labelStyle;
     private GUIStyle _centeredMiniLabel;
 
-    public Citizen prefabBase;
+    public Citizen C;
     private Citizen _baseClone;
 
     private GameObject _preCheck;
@@ -90,7 +90,7 @@ public class CitizenGenerator : EditorWindow
         //using (new EditorGUI.DisabledScope(prefabBase == true)) //
             //prefabBase = (pogger)EditorGUILayout.ObjectField("Citizen", prefabBase, typeof(pogger), true); //
 
-        if (prefabBase == true)
+        if (C == true)
         {
             EditorGUILayout.Space();
 
@@ -143,22 +143,22 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Aggression", _labelStyle);
 
-        prefabBase.LevelOfAggression = EditorGUILayout.Slider(prefabBase.LevelOfAggression, 0, 10);
+        C.LevelOfAggression = EditorGUILayout.Slider(C.LevelOfAggression, 0, 10);
 
-        prefabBase.LevelOfAggression = Mathf.Round(prefabBase.LevelOfAggression * 10) * 0.1f;
+        C.LevelOfAggression = Mathf.Round(C.LevelOfAggression * 10) * 0.1f;
 
-        if (prefabBase.LevelOfAggression > 5)
+        if (C.LevelOfAggression > 5)
         {
-            prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -180, 0);
-            prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -19.804f, 80);
-            prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 25.196f, 80);
+            C.Mouth.transform.rotation = new Quaternion(0, 0, -180, 0);
+            C.RightEyebrow.transform.rotation = new Quaternion(0, 0, -19.804f, 80);
+            C.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 25.196f, 80);
         }
 
-        else if (prefabBase.LevelOfAggression <= 5)
+        else if (C.LevelOfAggression <= 5)
         {
-            prefabBase.Mouth.transform.rotation = new Quaternion(0, 0, -0, 0);
-            prefabBase.RightEyebrow.transform.rotation = new Quaternion(0, 0, -5.507f, 160);
-            prefabBase.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 10.196f, 160);
+            C.Mouth.transform.rotation = new Quaternion(0, 0, -0, 0);
+            C.RightEyebrow.transform.rotation = new Quaternion(0, 0, -5.507f, 160);
+            C.LeftEyebrow.transform.rotation = new Quaternion(0, 0, 10.196f, 160);
         }
 
         EditorGUILayout.Space();
@@ -174,14 +174,14 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Intelligence", _labelStyle);
 
-        prefabBase.LevelOfIntelligence = EditorGUILayout.Slider(prefabBase.LevelOfIntelligence, 0, 10);
+        C.LevelOfIntelligence = EditorGUILayout.Slider(C.LevelOfIntelligence, 0, 10);
 
-        prefabBase.LevelOfIntelligence = Mathf.Round(prefabBase.LevelOfIntelligence * 10) * 0.1f;
+        C.LevelOfIntelligence = Mathf.Round(C.LevelOfIntelligence * 10) * 0.1f;
 
-        if (prefabBase.LevelOfIntelligence > 3)
-            prefabBase.head.transform.localScale = new Vector3(prefabBase.LevelOfIntelligence / 3, prefabBase.LevelOfIntelligence / 3, prefabBase.LevelOfIntelligence / 3);
-        else if (prefabBase.LevelOfIntelligence <= 3)
-            prefabBase.head.transform.localScale = new Vector3(1, 1, 1);
+        if (C.LevelOfIntelligence > 3)
+            C.head.transform.localScale = new Vector3(C.LevelOfIntelligence / 3, C.LevelOfIntelligence / 3, C.LevelOfIntelligence / 3);
+        else if (C.LevelOfIntelligence <= 3)
+            C.head.transform.localScale = new Vector3(1, 1, 1);
 
         EditorGUILayout.Space();
 
@@ -196,19 +196,19 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Streght", _labelStyle);
 
-        prefabBase.LevelOfStrength = EditorGUILayout.Slider(prefabBase.LevelOfStrength, 0, 10);
+        C.LevelOfStrength = EditorGUILayout.Slider(C.LevelOfStrength, 0, 10);
 
-        prefabBase.LevelOfStrength = Mathf.Round(prefabBase.LevelOfStrength * 10) * 0.1f;
+        C.LevelOfStrength = Mathf.Round(C.LevelOfStrength * 10) * 0.1f;
 
-        if (prefabBase.LevelOfStrength > 3)
+        if (C.LevelOfStrength > 3)
         {
-            prefabBase.RightHand.transform.localScale = new Vector3(prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3);
-            prefabBase.LeftHand.transform.localScale = new Vector3(prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3, prefabBase.LevelOfStrength / 3);
+            C.RightHand.transform.localScale = new Vector3(C.LevelOfStrength / 3, C.LevelOfStrength / 3, C.LevelOfStrength / 3);
+            C.LeftHand.transform.localScale = new Vector3(C.LevelOfStrength / 3, C.LevelOfStrength / 3, C.LevelOfStrength / 3);
         }
-        else if (prefabBase.LevelOfStrength <= 3)
+        else if (C.LevelOfStrength <= 3)
         {
-            prefabBase.RightHand.transform.localScale = new Vector3(1, 1, 1);
-            prefabBase.LeftHand.transform.localScale = new Vector3(1, 1, 1);
+            C.RightHand.transform.localScale = new Vector3(1, 1, 1);
+            C.LeftHand.transform.localScale = new Vector3(1, 1, 1);
         }
 
         EditorGUILayout.Space();
@@ -224,19 +224,19 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Agility", _labelStyle);
 
-        prefabBase.LevelofAgility = EditorGUILayout.Slider(prefabBase.LevelofAgility, 0, 10);
+        C.LevelofAgility = EditorGUILayout.Slider(C.LevelofAgility, 0, 10);
 
-        prefabBase.LevelofAgility = Mathf.Round(prefabBase.LevelofAgility * 10) * 0.1f;
+        C.LevelofAgility = Mathf.Round(C.LevelofAgility * 10) * 0.1f;
 
-        if (prefabBase.LevelofAgility > 3)
+        if (C.LevelofAgility > 3)
         {
-            prefabBase.RightLeg.transform.localScale = new Vector3(1, prefabBase.LevelofAgility / 6, 1);
-            prefabBase.LeftLeg.transform.localScale = new Vector3(1, prefabBase.LevelofAgility / 6, 1);
+            C.RightLeg.transform.localScale = new Vector3(1, C.LevelofAgility / 6, 1);
+            C.LeftLeg.transform.localScale = new Vector3(1, C.LevelofAgility / 6, 1);
         }
-        else if (prefabBase.LevelofAgility <= 3)
+        else if (C.LevelofAgility <= 3)
         {
-            prefabBase.RightLeg.transform.localScale = new Vector3(1, 1, 1);
-            prefabBase.LeftLeg.transform.localScale = new Vector3(1, 1, 1);
+            C.RightLeg.transform.localScale = new Vector3(1, 1, 1);
+            C.LeftLeg.transform.localScale = new Vector3(1, 1, 1);
         }
 
         EditorGUILayout.Space();
@@ -283,9 +283,9 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Hats", _labelStyle);
 
-        prefabBase.currentHat = EditorGUILayout.IntSlider(prefabBase.currentHat, 0, 9);
+        C.currentHat = EditorGUILayout.IntSlider(C.currentHat, 0, 9);
 
-        switch (prefabBase.currentHat)
+        switch (C.currentHat)
         {
             case 0:
                 CleanHats();
@@ -293,53 +293,53 @@ public class CitizenGenerator : EditorWindow
 
             case 1:
                 CleanHats();
-                prefabBase.Hats[0].SetActive(true);
+                C.Hats[0].SetActive(true);
                 break;
 
             case 2:
                 CleanHats();
-                prefabBase.Hats[1].SetActive(true);
+                C.Hats[1].SetActive(true);
                 break;
 
             case 3:
                 CleanHats();
-                prefabBase.Hats[2].SetActive(true);
+                C.Hats[2].SetActive(true);
                 break;
 
             case 4:
                 CleanHats();
-                prefabBase.Hats[3].SetActive(true);
+                C.Hats[3].SetActive(true);
                 break;
 
             case 5:
                 CleanHats();
-                prefabBase.Hats[4].SetActive(true);
+                C.Hats[4].SetActive(true);
                 break;
 
             case 6:
                 CleanHats();
-                prefabBase.Hats[5].SetActive(true);
+                C.Hats[5].SetActive(true);
                 break;
 
             case 7:
                 CleanHats();
-                prefabBase.Hats[6].SetActive(true);
+                C.Hats[6].SetActive(true);
                 break;
 
             case 8:
                 CleanHats();
-                prefabBase.Hats[7].SetActive(true);
+                C.Hats[7].SetActive(true);
                 break;
 
             case 9:
                 CleanHats();
-                prefabBase.Hats[8].SetActive(true);
+                C.Hats[8].SetActive(true);
                 break;
         }
 
         void CleanHats()
         {
-            foreach (GameObject objet in prefabBase.Hats)
+            foreach (GameObject objet in C.Hats)
             {
                 objet.SetActive(false);
             }
@@ -354,7 +354,7 @@ public class CitizenGenerator : EditorWindow
 
     private void PrefabSaver()
     {
-        var currentPath = AssetDatabase.GetAssetPath(prefabBase);
+        var currentPath = AssetDatabase.GetAssetPath(C);
 
         EditorGUILayout.Space();
 
@@ -366,11 +366,11 @@ public class CitizenGenerator : EditorWindow
 
         if (saveButton && name != "" && name != " ")
         {
-            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(prefabBase), "Assets/" + name + ".prefab");
+            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(C), "Assets/" + name + ".prefab");
             Reseter();
             AssetDatabase.Refresh();
-            AssetDatabase.OpenAsset(prefabBase);
-            prefabBase.currentHat = 0;
+            AssetDatabase.OpenAsset(C);
+            C.currentHat = 0;
         }
     }
 
@@ -378,25 +378,25 @@ public class CitizenGenerator : EditorWindow
     {
         if (!_isOnScreen)
         {
-            AssetDatabase.OpenAsset(prefabBase);
+            AssetDatabase.OpenAsset(C);
             _isOnScreen = true;
         }
     }
 
     private void Reseter()
     {
-        prefabBase.LevelOfAggression = 3;
-        prefabBase.LevelofAgility = 3;
-        prefabBase.LevelOfIntelligence = 3;
-        prefabBase.LevelOfPerception = 3;
-        prefabBase.LevelOfStrength = 3;
+        C.LevelOfAggression = 3;
+        C.LevelofAgility = 3;
+        C.LevelOfIntelligence = 3;
+        C.LevelOfPerception = 3;
+        C.LevelOfStrength = 3;
     }
 
     public void UpdateDatabase()
     {
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        AssetDatabase.OpenAsset(prefabBase);
+        AssetDatabase.OpenAsset(C);
     }
 
     public void IntensityApplayer()
