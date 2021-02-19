@@ -10,7 +10,7 @@ public class Citizen : MonoBehaviour
     public float LevelofAgility;
     public float LevelOfPerception;
 
-    public int numbe;
+    public int currentHat;
 
     public GameObject head;
     public GameObject RightHand;

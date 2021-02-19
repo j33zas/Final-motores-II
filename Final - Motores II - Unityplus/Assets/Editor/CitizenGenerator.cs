@@ -283,9 +283,9 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.LabelField("Hats", _labelStyle);
 
-        prefabBase.numbe = EditorGUILayout.IntSlider(prefabBase.numbe, 0, 9);
+        prefabBase.currentHat = EditorGUILayout.IntSlider(prefabBase.currentHat, 0, 9);
 
-        switch (prefabBase.numbe)
+        switch (prefabBase.currentHat)
         {
             case 0:
                 CleanHats();
@@ -370,7 +370,7 @@ public class CitizenGenerator : EditorWindow
             Reseter();
             AssetDatabase.Refresh();
             AssetDatabase.OpenAsset(prefabBase);
-            prefabBase.numbe = 0;
+            prefabBase.currentHat = 0;
         }
     }
 
