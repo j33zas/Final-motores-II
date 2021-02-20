@@ -47,18 +47,22 @@ public class NewLimitEditor : Editor
 
             if (_nodeExist)
             {
-                if (_nld.newNodes.Count >= 2)
+                if (_nld.newNodes.Count > 2)
                 {
                     if (GUI.Button(new Rect(v.width - 300, v.height - 70, 120, 50), "Undo node"))
-                    {                  
+                    {
+                        DestroyImmediate(_nld.newNodes[_nld.newNodes.Count - 1]);
                         _nld.newNodes.RemoveAt(myNodes.Count - 1);
-
-                        _nld.Prefab = _nld.newNodes[myNodes.Count - 1];
+                        myNodes.RemoveAt(_nld.newNodes.Count - 1);
 
                         Debug.Log("chau nodo");                      
                     }
                 }
-
+                else if (_nld.newNodes.Count <= 2)
+                {
+                    _nodeExist = false;
+                }
+            
                 if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Add final node"))
                 {
                     Debug.Log("nodo final agregado");
@@ -85,11 +89,23 @@ public class NewLimitEditor : Editor
         {
             if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Save"))
             {
+                LimitSaver _ls = ScriptableObjectUtility.CreateAsset<LimitSaver>("Assets/Limits/Saved Limits", " new limit");
+                foreach (var item in myNodes)
+                {
+                    _ls.saverOfLimits.Add(item.transform.position);
+                }
+                myNodes.Clear();
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                DestroyImmediate(_nld.gameObject);
+
                 Debug.Log("SAVED POOG");
             }
 
             if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Destroy"))
             {
+                DestroyImmediate(_nld.gameObject);
                 Debug.Log("Deleted it, was cringe");
             }
         }
