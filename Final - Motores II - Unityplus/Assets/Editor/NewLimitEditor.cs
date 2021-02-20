@@ -105,21 +105,27 @@ public class NewLimitEditor : Editor
 
             if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Destroy"))
             {
-                DestroyImmediate(_nld.gameObject);
-                Debug.Log("Deleted it, was cringe");
+                if(_nld.gameObject != null)
+                {
+                    DestroyImmediate(_nld.gameObject);
+                    Debug.Log("Deleted it, was cringe");
+                }
             }
         }
 
-        if (_nld.transform.childCount >= 2)
+        if (_nld)
         {
-            for (int i = 0; i < _nld.transform.childCount; i++)
+            if (_nld.transform.childCount >= 2)
             {
-                var objCurrent = _nld.transform.GetChild(i).gameObject;
-
-                if (!myNodes.Contains(objCurrent) && !_nld.newNodes.Contains(objCurrent))
+                for (int i = 0; i < _nld.transform.childCount; i++)
                 {
-                    myNodes.Add(objCurrent);
-                    _nld.newNodes.Add(objCurrent);
+                    var objCurrent = _nld.transform.GetChild(i).gameObject;
+
+                    if (!myNodes.Contains(objCurrent) && !_nld.newNodes.Contains(objCurrent))
+                    {
+                        myNodes.Add(objCurrent);
+                        _nld.newNodes.Add(objCurrent);
+                    }
                 }
             }
         }
@@ -128,21 +134,24 @@ public class NewLimitEditor : Editor
 
         Handles.color = Color.blue;
 
-        if (_nld.newNodes.Count >= 2)
+        if (_nld)
         {
-            _nld.Prefab = _nld.newNodes[_nld.newNodes.Count - 1];
-        }
+            if (_nld.newNodes.Count >= 2)
+            {
+                _nld.Prefab = _nld.newNodes[_nld.newNodes.Count - 1];
+            }
 
-        if (_finalNodeAdded)
-        {
-            Handles.DrawLine(_nld.newNodes[0].gameObject.transform.position, _nld.Prefab.transform.position);
-        }
-       
-        for (var i = 1; i < _nld.newNodes.Count; i++)
-        {             
-           Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);                      
-        }        
+            if (_finalNodeAdded)
+            {
+                Handles.DrawLine(_nld.newNodes[0].gameObject.transform.position, _nld.Prefab.transform.position);
+            }
 
-        tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
+            for (var i = 1; i < _nld.newNodes.Count; i++)
+            {
+                Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
+            }
+
+            tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
+        }
     }
 }
