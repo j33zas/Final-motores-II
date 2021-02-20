@@ -8,13 +8,11 @@ using System;
 
 public class NewLimitEditor : Editor
 {
-    List<Vector3> saveBezier = new List<Vector3>();
-
     List<GameObject> myNodes = new List<GameObject>();
 
     private NewLimitDefiner _nld;
 
-    bool _finalNodeAdded;
+    bool _finalNodeAdded;    
     bool _nodeExist;
 
     private void OnEnable()
@@ -33,29 +31,66 @@ public class NewLimitEditor : Editor
         var main = Camera.current.WorldToScreenPoint(_nld.transform.position);
         var newNode = Camera.current.WorldToScreenPoint(_nld.Prefab.transform.position);
 
-        var mainRect = new Rect(main.x - 40, Screen.height - main.y - 100, 50, 40);
+        var mainRect = new Rect(main.x - 40, Screen.height - main.y - 100, 50, 20);
         var nodeRect = new Rect(newNode.x - 40, Screen.height - newNode.y - 100, 50, 20);
 
+        GUI.TextArea(nodeRect, "NODO");
+        GUI.TextArea(mainRect, "BASE");
 
-        if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Add node"))
+        if (!_finalNodeAdded)
         {
-            Debug.Log("nodo agregado");
-            _nodeExist = true;
-            Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 50, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
-        }
-
-        if (_nodeExist)
-        {
-            if (GUI.Button(new Rect(v.width - 300, v.height - 70, 120, 50), "Undo node"))
+            if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Add node"))
             {
-                Debug.Log("nodo final agregado");
+                _nodeExist = true;
+                Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 50, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
             }
 
-            if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Add final node"))
+            if (_nodeExist)
             {
-                Debug.Log("nodo final agregado");
-                Instantiate(_nld.Prefab, new Vector3(0, 0, 0), Quaternion.identity, _nld.transform);
-                _finalNodeAdded = true;
+                if (_nld.newNodes.Count >= 2)
+                {
+                    if (GUI.Button(new Rect(v.width - 300, v.height - 70, 120, 50), "Undo node"))
+                    {                  
+                        _nld.newNodes.RemoveAt(myNodes.Count - 1);
+
+                        _nld.Prefab = _nld.newNodes[myNodes.Count - 1];
+
+                        Debug.Log("chau nodo");                      
+                    }
+                }
+
+                if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Add final node"))
+                {
+                    Debug.Log("nodo final agregado");
+
+                    _finalNodeAdded = true;
+
+                    Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 50, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
+                }
+
+                if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Flat all"))
+                {
+                    Debug.Log("Flatenned");
+
+                    for (int i = 0; i < _nld.transform.childCount; i++)
+                    {
+                        var objCurrent = _nld.transform.GetChild(i).gameObject;
+
+                        objCurrent.transform.position = new Vector3(objCurrent.transform.position.x, 1, objCurrent.transform.position.z);
+                    }
+                }
+            }         
+        }
+        else if (_finalNodeAdded)
+        {
+            if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Save"))
+            {
+                Debug.Log("SAVED POOG");
+            }
+
+            if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Destroy"))
+            {
+                Debug.Log("Deleted it, was cringe");
             }
         }
 
@@ -73,16 +108,13 @@ public class NewLimitEditor : Editor
             }
         }
 
-        GUI.TextArea(nodeRect, "NODO");
-
         Handles.EndGUI();
 
         Handles.color = Color.blue;
 
-        if (_nld.newNodes.Count >= 2 && !_finalNodeAdded)
+        if (_nld.newNodes.Count >= 2)
         {
             _nld.Prefab = _nld.newNodes[_nld.newNodes.Count - 1];
-            _nld.oldPrefab = _nld.newNodes[_nld.newNodes.Count - 2];
         }
 
         if (_finalNodeAdded)
@@ -91,8 +123,8 @@ public class NewLimitEditor : Editor
         }
        
         for (var i = 1; i < _nld.newNodes.Count; i++)
-        {
-            Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
+        {             
+           Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);                      
         }        
 
         tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
