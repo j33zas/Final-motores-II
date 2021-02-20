@@ -26,7 +26,7 @@ public class CitizenGenerator : EditorWindow
 
     bool _baseWasFound;
 
-    [MenuItem("CustomTools/CitizenGenerator")]
+    [MenuItem("Unity+/Citizen Generator")]
     public static void OpenWindow()
     {
         CitizenGenerator myWindow = (CitizenGenerator)GetWindow(typeof(CitizenGenerator));
@@ -51,8 +51,8 @@ public class CitizenGenerator : EditorWindow
         _centeredMiniLabel.fontStyle = FontStyle.Normal;
         _centeredMiniLabel.alignment = TextAnchor.MiddleCenter;
 
-        maxSize = new Vector2(345, 530);
-        minSize = new Vector2(345, 530);
+        maxSize = new Vector2(345, 550);
+        minSize = new Vector2(345, 550);
 
         //var prefab = AssetDatabase.LoadAssetAtPath("Assets/Assets/Prefabs/BASEcharacterMedium.prefab", typeof(GameObject));
     }
@@ -85,12 +85,12 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.Space();
 
-        //ActivationButton();
+        ActivationButton();
 
-        //using (new EditorGUI.DisabledScope(prefabBase == true)) //
-            //prefabBase = (pogger)EditorGUILayout.ObjectField("Citizen", prefabBase, typeof(pogger), true); //
+        using (new EditorGUI.DisabledScope(C == true))
+            C = (Citizen)EditorGUILayout.ObjectField("Citizen", C, typeof(Citizen), true); //
 
-        if (C == true)
+        if (C)
         {
             EditorGUILayout.Space();
 
@@ -120,21 +120,11 @@ public class CitizenGenerator : EditorWindow
 
     private void ActivationButton() //NOT FUNCIONANDO
     {
-        //var funnyButton = GUILayout.Button("ayuda");
-
-        /*
-
+        var funnyButton = GUILayout.Button("ayuda");
         if (funnyButton)
         {
-            AssetDatabase.CopyAsset("Assets/Assets/Prefabs/BACKUPPORLASDUDAS2.prefab", "Assets/" + "Test" + ".prefab");
-            //_prefabCitizen = GameObject.FindObjectOfType<>("Assets/Assets/Prefabs/Test.prefab");
-
-            //_prefabCitizen = GameObject.FindObjectOfType<BaseCitizenScript>();
-
-            //var newSaver = Resources.Load("Assets/Assets/Prefab/Test");
-            _preCheck = PrefabUtility.LoadPrefabContents("Assets/Assets/Prefabs/Test.prefab");
+            C = (Citizen)Resources.Load("MAINBASE", typeof(Citizen));
         }
-        //AssetDatabase.CopyAsset(AssetDatabase.get)*/
     }
 
     private void AggresionSlider()

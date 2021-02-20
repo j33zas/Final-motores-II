@@ -3249,7 +3249,7 @@ MonoBehaviour:
   LevelOfStrength: 3
   LevelofAgility: 3
   LevelOfPerception: 3
-  numbe: 0
+  currentHat: 0
   head: {fileID: 6582441206417720321}
   RightHand: {fileID: 2900047551568800602}
   LeftHand: {fileID: 3131877930111627360}
