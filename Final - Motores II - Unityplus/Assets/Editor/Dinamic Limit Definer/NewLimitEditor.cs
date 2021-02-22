@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 using System;
 
 [CustomEditor(typeof(NewLimitDefiner))]
@@ -15,9 +16,53 @@ public class NewLimitEditor : Editor
     bool _finalNodeAdded;    
     bool _nodeExist;
 
+    LimitSaver scriptable;
+    List<Vector3> newSaverOfLimits;
+    
+    
     private void OnEnable()
     {
         _nld = (NewLimitDefiner)target;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        if (!scriptable)
+        {
+            scriptable = (LimitSaver)EditorGUILayout.ObjectField("Load A limit", scriptable, typeof(LimitSaver), true);
+            return;
+        }
+
+        if(newSaverOfLimits == null)
+        {
+            newSaverOfLimits = scriptable.saverOfLimits;
+            myNodes.Clear();
+            foreach (var item in newSaverOfLimits)
+            {
+                var current = Instantiate(new GameObject(), item, Quaternion.identity, _nld.transform);
+                myNodes.Add(current);
+                _nodeExist = true;
+                _finalNodeAdded = true;
+            }
+        }
+
+        for (int i = 0; i < newSaverOfLimits.Count; i++)
+        {
+
+            EditorGUIUtility.labelWidth = 15;
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Nodo " + i);
+            EditorGUILayout.LabelField(newSaverOfLimits[i].x.ToString());
+            EditorGUILayout.LabelField(newSaverOfLimits[i].y.ToString());
+            EditorGUILayout.LabelField(newSaverOfLimits[i].z.ToString());
+            if(GUILayout.Button("Edit"))
+            {
+
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUIUtility.labelWidth = 0;
+        }
     }
 
     private void OnSceneGUI()
@@ -42,7 +87,7 @@ public class NewLimitEditor : Editor
             if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Add node"))
             {
                 _nodeExist = true;
-                Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 50, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
+                Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 1, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
             }
 
             if (_nodeExist)
