@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 
@@ -62,6 +63,7 @@ public class MultiAssetTransform : Editor
         {
             MultiAssetSettings MAT = (MultiAssetSettings)Resources.Load("MultiAT/LastSettings");
             MultiAssetTransformUtility.TransformToSettings(MAT,this);
+            EditorUtility.SetDirty(MAT);
             AssetDatabase.SaveAssets();
         }
     }
@@ -132,6 +134,11 @@ public class MultiAssetTransform : Editor
                 if(_zScale)
                     foreach (var item in Selection.gameObjects)
                         item.transform.localScale += new Vector3(0, 0,Random.Range(_UnitsScaleA, _UnitsScaleB));
+
+                //var selectionTransform = Selection.gameObjects.Select(G => G.transform).ToArray();
+                //SerializedObject serializedSelection = new SerializedObject(selectionTransform);
+                //serializedSelection.FindProperty("m_Rotation").vector3Value = ;
+                //serializedSelection.FindProperty("m_Scale");
             }
 
             GUILayout.BeginHorizontal();

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb002bcf9bf431a43b0f6e2557b9a53b, type: 3}
-  m_Name: LastSettings
+  m_Name: poggers
   m_EditorClassIdentifier: 
   _IndividualDeegrees: 0
   _IndividualScale: 0
-  _xRotate: 0
+  _xRotate: 1
   _yRotate: 1
-  _zRotate: 0
+  _zRotate: 1
   _xScale: 0
   _yScale: 0
   _zScale: 0
-  _deegreesRotationA: 10
-  _deegreesRotationB: 15
-  _UnitsScaleA: 0
-  _UnitsScaleB: 0
+  _deegreesRotationA: 25
+  _deegreesRotationB: -25
+  _UnitsScaleA: 1.1
+  _UnitsScaleB: 0.9
   _RotateOnWorldAxis: 0
-  CurrentStateR: LOCAL
-  RotationSpace: 1
+  CurrentStateR: 
+  RotationSpace: 0

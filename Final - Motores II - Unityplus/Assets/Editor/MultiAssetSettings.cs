@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class MultiAssetSettings : ScriptableObject
 {
-    public int _objSelectedAmount;
+    int _objSelectedAmount;
     public bool _IndividualDeegrees;
     public bool _IndividualScale;
 
