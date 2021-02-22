@@ -34,9 +34,9 @@ public class CitizenEditor : Editor
     {
         GUILayout.Label("Modifiy Stats", _titleStyle);
 
-        C.LevelOfAggression = EditorGUILayout.Slider("Aggression",C.LevelOfAggression, 0, 10);
+        C.LevelOfAggression = EditorGUILayout.Slider("Aggression", C.LevelOfAggression, 0, 10);
 
-        C.LevelOfIntelligence = EditorGUILayout.Slider("Intelligence",C.LevelOfIntelligence, 0, 10);
+        C.LevelOfIntelligence = EditorGUILayout.Slider("Intelligence", C.LevelOfIntelligence, 0, 10);
 
         C.LevelOfStrength = EditorGUILayout.Slider("Strength", C.LevelOfStrength, 0, 10);
 
@@ -44,13 +44,13 @@ public class CitizenEditor : Editor
 
         C.currentHat = EditorGUILayout.IntSlider("Hat", C.currentHat, 0, 7);
 
-        if(C.currentHat != CProxy.currentHat)
+        if (C.currentHat != CProxy.currentHat)
         {
             CleanHats();
             C.Hats[C.currentHat].SetActive(true);
             CProxy.Equals(C);
         }
-        if(C.LevelOfAggression != CProxy.LevelOfAggression)
+        if (C.LevelOfAggression != CProxy.LevelOfAggression)
         {
             if (C.LevelOfAggression > 5)
             {
@@ -67,17 +67,17 @@ public class CitizenEditor : Editor
             }
             CProxy.Equals(C);
         }
-        if(C.LevelofAgility != CProxy.LevelofAgility)
+        if (C.LevelofAgility != CProxy.LevelofAgility)
         {
-            if (C.LevelofAgility > 3)
+            if (C.LevelofAgility > 2)
             {
                 C.RightLeg.transform.localScale = new Vector3(1, C.LevelofAgility / 6, 1);
                 C.LeftLeg.transform.localScale = new Vector3(1, C.LevelofAgility / 6, 1);
             }
-            else if (C.LevelofAgility <= 3)
+            else if (C.LevelofAgility <= 2)
             {
-                C.RightLeg.transform.localScale = new Vector3(1, 1, 1);
-                C.LeftLeg.transform.localScale = new Vector3(1, 1, 1);
+                C.RightLeg.transform.localScale = new Vector3(1, 0.25f, 1);
+                C.LeftLeg.transform.localScale = new Vector3(1, 0.25f, 1);
             }
         }
         if (C.LevelOfIntelligence != CProxy.LevelOfIntelligence)
@@ -87,7 +87,7 @@ public class CitizenEditor : Editor
             else if (C.LevelOfIntelligence <= 3)
                 C.head.transform.localScale = new Vector3(1, 1, 1);
         }
-        if(C.LevelOfStrength != CProxy.LevelOfStrength)
+        if (C.LevelOfStrength != CProxy.LevelOfStrength)
         {
             if (C.LevelOfStrength > 3)
             {
@@ -101,14 +101,14 @@ public class CitizenEditor : Editor
             }
         }
 
-        if(C.currentHat == 0)
+        if (C.currentHat == 0)
             CleanHats();
 
         GUILayout.Label("Pick a Preset", _titleStyle);
 
         GUILayout.BeginHorizontal();
 
-        if(GUILayout.Button(cloverTex))
+        if (GUILayout.Button(cloverTex))
         {
             C.currentHat = 3;
             C.LevelOfAggression = 8;
@@ -142,9 +142,15 @@ public class CitizenEditor : Editor
         }
         GUILayout.EndHorizontal();
 
-
         GUILayout.Label("Rename Civilization", _titleStyle);
+
         C.name = EditorGUILayout.TextField(C.name);
+
+        if (GUILayout.Button("save"))
+        {
+            EditorUtility.SetDirty(C);
+            PrefabUtility.SaveAsPrefabAsset(C.gameObject, "Assets/" + C.name + ".prefab");
+        }
     }
     void CleanHats()
     {

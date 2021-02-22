@@ -53,24 +53,12 @@ public class CitizenGenerator : EditorWindow
 
         maxSize = new Vector2(345, 550);
         minSize = new Vector2(345, 550);
-
-        //var prefab = AssetDatabase.LoadAssetAtPath("Assets/Assets/Prefabs/BASEcharacterMedium.prefab", typeof(GameObject));
     }
 
     private void OnGUI()
     {
         ShowOptions();
     }
-
-    /*private void OnSceneGui()
-    {
-        if (Event.current.type == EventType.MouseUp && Event.current.button == 0)
-        {
-            //UpdateDatabase();
-            Debug.Log("pog");
-            _fakeMouse = true;
-        }
-    }*/
 
     private void ShowOptions()
     {
@@ -108,8 +96,6 @@ public class CitizenGenerator : EditorWindow
 
             AgilitySlider();
 
-            //PerceptionSlider();
-
             HatSelector();
 
             EditorGUILayout.Space();
@@ -118,7 +104,7 @@ public class CitizenGenerator : EditorWindow
         }
     }
 
-    private void ActivationButton() //NOT FUNCIONANDO
+    private void ActivationButton() 
     {
         var funnyButton = GUILayout.Button("ayuda");
         if (funnyButton)
@@ -235,37 +221,6 @@ public class CitizenGenerator : EditorWindow
 
         EditorGUILayout.Space();
     }
-
-    /*private void PerceptionSlider()
-    {
-        EditorGUILayout.Space();
-
-        EditorGUILayout.LabelField("Perception", _labelStyle);
-
-        _prefabCitizen.LevelOfPerception = EditorGUILayout.Slider(_prefabCitizen.LevelOfPerception, 0, 10);
-
-        _prefabCitizen.LevelOfPerception = Mathf.Round(_prefabCitizen.LevelOfPerception * 10) * 0.1f;
-
-        if (_prefabCitizen.LevelOfPerception > 3)
-        {
-            //_prefabCitizen.Eyes.transform.localScale = new Vector3(_prefabCitizen.LevelOfPerception / 450, _prefabCitizen.LevelOfPerception / 450, _prefabCitizen.LevelOfPerception / 450);
-            _prefabCitizen.Eyes.transform.localScale = new Vector3(_prefabCitizen.LevelOfPerception / 450, _prefabCitizen.LevelOfPerception / 450, 0.00939989f);
-            //_prefabCitizen.Eyes.transform.position = _prefabCitizen.EyesBase.transform.position;
-
-        }
-            
-        else if (_prefabCitizen.LevelOfPerception <= 3)
-        {
-            _prefabCitizen.Eyes.transform.localScale = new Vector3(0.00939989f, 0.00939989f, 0.00939989f);
-            //_prefabCitizen.Eyes.transform.position = new Vector3 (1, -0.00054f, 0.00068f);
-        }
-            
-        EditorGUILayout.Space();
-
-        IntensityApplayer();
-
-        EditorGUILayout.Space();
-    }*/
 
     void HatSelector()
     {
