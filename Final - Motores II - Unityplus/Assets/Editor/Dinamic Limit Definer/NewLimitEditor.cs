@@ -77,6 +77,8 @@ public class NewLimitEditor : Editor
 
     private void OnSceneGUI()
     {
+        Selection.activeGameObject = _nld.gameObject;
+
         var tgt = (NewLimitDefiner)target;
 
         Handles.BeginGUI();
@@ -139,9 +141,11 @@ public class NewLimitEditor : Editor
                     _ls.saverOfLimits.Add(item.transform.position);
                 }
                 myNodes.Clear();
+                EditorUtility.SetDirty(_ls);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
+                //Selection.activeGameObject = null; 
                 DestroyImmediate(_nld.gameObject);
 
                 Debug.Log("SAVED");
@@ -151,6 +155,7 @@ public class NewLimitEditor : Editor
             {
                 if(_nld.gameObject != null)
                 {
+                    //Selection.activeGameObject = null;
                     DestroyImmediate(_nld.gameObject);
                     Debug.Log("Nevermind");
                 }
@@ -202,30 +207,27 @@ public class NewLimitEditor : Editor
                 Handles.DrawLine(_nld.newNodes[0].gameObject.transform.position, _nld.Prefab.transform.position);
             }
 
-            //if (!test)
-            //{
-                for (var i = 1; i < _nld.newNodes.Count; i++)
-                {
-                    Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
-                }
-            //}
+            for (var i = 1; i < _nld.newNodes.Count; i++)
+            {
+                Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
+            }
 
             tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
-        }
 
-        if (test)
-        {
-            foreach (var item in myNodes)
+            if (test)
             {
-                item.transform.position = Handles.PositionHandle(item.transform.position, item.transform.rotation);
-            }
+                foreach (var item in myNodes)
+                {
+                    item.transform.position = Handles.PositionHandle(item.transform.position, item.transform.rotation);
+                }
 
-            for (var i = 1; i < myNodes.Count; i++)
-            {
-                Handles.DrawLine(myNodes[i - 1].transform.position, myNodes[i].transform.position);
-            }
+                for (var i = 1; i < myNodes.Count; i++)
+                {
+                    Handles.DrawLine(myNodes[i - 1].transform.position, myNodes[i].transform.position);
+                }
 
-            _finalNodeAdded = true;
+                _finalNodeAdded = true;
+            }
         }
     }
 }

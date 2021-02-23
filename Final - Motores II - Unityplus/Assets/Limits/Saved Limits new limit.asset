@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ef1647cb6f324390c77fdcbae79d7, type: 3}
   m_Name: Saved Limits new limit
   m_EditorClassIdentifier: 
-  saverOfLimits: []
+  saverOfLimits:
+  - {x: -36.30902, y: 0, z: 629.51013}
+  - {x: 251.42645, y: 0, z: 496.2787}
+  - {x: 298.0819, y: 0, z: -221.84546}
+  - {x: -230.31927, y: 0, z: -351.87915}
+  - {x: -397.9577, y: 0, z: 258.8623}
+  - {x: -341.5187, y: 0, z: 567.2987}
+  - {x: -209.39417, y: 0, z: 721.64453}
