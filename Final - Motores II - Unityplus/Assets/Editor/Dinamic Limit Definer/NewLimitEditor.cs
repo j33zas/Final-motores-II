@@ -43,15 +43,17 @@ public class NewLimitEditor : Editor
 
             _nodeExist = true;
             test = true;
-      
+
             foreach (var item in newSaverOfLimits)
             {
-                //var current = Instantiate(new GameObject(), item, Quaternion.identity, _nld.transform);
-                var current = Instantiate(_nld.Prefab, item, Quaternion.identity, _nld.transform);       
-                
+                var current = Instantiate(_nld.Prefab, item, Quaternion.identity, _nld.transform);                      
                 myNodes.Add(current);            
-                //_finalNodeAdded = true;
             }
+
+            /*if (_nld.transform.childCount > newSaverOfLimits.Count)
+            {
+                DestroyImmediate(myNodes[myNodes.Count - 1]);
+            }*/
         }
 
         for (int i = 0; i < newSaverOfLimits.Count; i++)
@@ -99,12 +101,13 @@ public class NewLimitEditor : Editor
             }
 
             if (_nodeExist)
-            {
+            {               
                 if (_nld.newNodes.Count > 2)
                 {
                     if (GUI.Button(new Rect(v.width - 300, v.height - 70, 120, 50), "Undo node"))
                     {
                         DestroyImmediate(_nld.newNodes[_nld.newNodes.Count - 1]);
+                        //DestroyImmediate(_nld.newNodes[0]);
                         _nld.newNodes.RemoveAt(myNodes.Count - 1);
                         myNodes.RemoveAt(_nld.newNodes.Count - 1);
 
@@ -115,7 +118,7 @@ public class NewLimitEditor : Editor
                 {
                     _nodeExist = false;
                 }
-            
+
                 if (GUI.Button(new Rect(v.width - 450, v.height - 70, 120, 50), "Add final node"))
                 {
                     Debug.Log("nodo final agregado");
@@ -123,18 +126,6 @@ public class NewLimitEditor : Editor
                     _finalNodeAdded = true;
 
                     Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 50, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
-                }
-
-                if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Flat all"))
-                {
-                    Debug.Log("Flatenned");
-
-                    for (int i = 0; i < _nld.transform.childCount; i++)
-                    {
-                        var objCurrent = _nld.transform.GetChild(i).gameObject;
-
-                        objCurrent.transform.position = new Vector3(objCurrent.transform.position.x, 1, objCurrent.transform.position.z);
-                    }
                 }
             }         
         }
@@ -153,7 +144,7 @@ public class NewLimitEditor : Editor
 
                 DestroyImmediate(_nld.gameObject);
 
-                Debug.Log("SAVED POOG");
+                Debug.Log("SAVED");
             }
 
             if (GUI.Button(new Rect(v.width - 600, v.height - 70, 120, 50), "Destroy"))
@@ -161,8 +152,20 @@ public class NewLimitEditor : Editor
                 if(_nld.gameObject != null)
                 {
                     DestroyImmediate(_nld.gameObject);
-                    Debug.Log("Deleted it, was cringe");
+                    Debug.Log("Nevermind");
                 }
+            }
+        }
+
+        if (GUI.Button(new Rect(v.width - 925, v.height - 70, 120, 50), "Flat all"))
+        {
+            Debug.Log("Flatenned");
+
+            for (int i = 0; i < _nld.transform.childCount; i++)
+            {
+                var objCurrent = _nld.transform.GetChild(i).gameObject;
+
+                objCurrent.transform.position = new Vector3(objCurrent.transform.position.x, 1, objCurrent.transform.position.z);
             }
         }
 
@@ -199,10 +202,13 @@ public class NewLimitEditor : Editor
                 Handles.DrawLine(_nld.newNodes[0].gameObject.transform.position, _nld.Prefab.transform.position);
             }
 
-            for (var i = 1; i < _nld.newNodes.Count; i++)
-            {
-                Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
-            }
+            //if (!test)
+            //{
+                for (var i = 1; i < _nld.newNodes.Count; i++)
+                {
+                    Handles.DrawLine(_nld.newNodes[i - 1].transform.position, _nld.newNodes[i].transform.position);
+                }
+            //}
 
             tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
         }
