@@ -16,6 +16,9 @@ public class NewLimitEditor : Editor
     bool _finalNodeAdded;    
     bool _nodeExist;
 
+    bool test;
+    bool stop;
+
     LimitSaver scriptable;
     List<Vector3> newSaverOfLimits;
     
@@ -37,12 +40,17 @@ public class NewLimitEditor : Editor
         {
             newSaverOfLimits = scriptable.saverOfLimits;
             myNodes.Clear();
+
+            _nodeExist = true;
+            test = true;
+      
             foreach (var item in newSaverOfLimits)
             {
-                var current = Instantiate(new GameObject(), item, Quaternion.identity, _nld.transform);
-                myNodes.Add(current);
-                _nodeExist = true;
-                _finalNodeAdded = true;
+                //var current = Instantiate(new GameObject(), item, Quaternion.identity, _nld.transform);
+                var current = Instantiate(_nld.Prefab, item, Quaternion.identity, _nld.transform);       
+                
+                myNodes.Add(current);            
+                //_finalNodeAdded = true;
             }
         }
 
@@ -87,7 +95,7 @@ public class NewLimitEditor : Editor
             if (GUI.Button(new Rect(v.width - 150, v.height - 70, 120, 50), "Add node"))
             {
                 _nodeExist = true;
-                Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 1, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
+                Instantiate(_nld.Prefab, new Vector3(_nld.Prefab.transform.position.x + 10, _nld.Prefab.transform.position.y, _nld.Prefab.transform.position.z), Quaternion.identity, _nld.transform);
             }
 
             if (_nodeExist)
@@ -197,6 +205,21 @@ public class NewLimitEditor : Editor
             }
 
             tgt.Prefab.transform.position = Handles.PositionHandle(tgt.Prefab.transform.position, tgt.Prefab.transform.rotation);
+        }
+
+        if (test)
+        {
+            foreach (var item in myNodes)
+            {
+                item.transform.position = Handles.PositionHandle(item.transform.position, item.transform.rotation);
+            }
+
+            for (var i = 1; i < myNodes.Count; i++)
+            {
+                Handles.DrawLine(myNodes[i - 1].transform.position, myNodes[i].transform.position);
+            }
+
+            _finalNodeAdded = true;
         }
     }
 }
