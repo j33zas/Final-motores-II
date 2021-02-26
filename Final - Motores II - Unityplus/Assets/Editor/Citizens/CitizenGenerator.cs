@@ -22,7 +22,7 @@ public class CitizenGenerator : EditorWindow
 
     private string _civilizationName;
 
-    public Citizen[] _typesList; //= GameObject.FindObjectsOfType<BaseCitizenScript>();
+    public Citizen[] _typesList;
 
     bool _baseWasFound;
 
@@ -76,7 +76,7 @@ public class CitizenGenerator : EditorWindow
         ActivationButton();
 
         using (new EditorGUI.DisabledScope(C == true))
-            C = (Citizen)EditorGUILayout.ObjectField("Citizen", C, typeof(Citizen), true); //
+            C = (Citizen)EditorGUILayout.ObjectField("Citizen", C, typeof(Citizen), true); 
 
         if (C)
         {

@@ -116,7 +116,6 @@ public class NewLimitEditor : Editor
                     if (GUI.Button(new Rect(v.width - 300, v.height - 70, 120, 50), "Undo node"))
                     {
                         DestroyImmediate(_nld.newNodes[_nld.newNodes.Count - 1]);
-                        //DestroyImmediate(_nld.newNodes[0]);
                         _nld.newNodes.RemoveAt(myNodes.Count - 1);
                         myNodes.RemoveAt(_nld.newNodes.Count - 1);
 
@@ -152,7 +151,6 @@ public class NewLimitEditor : Editor
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
-                //Selection.activeGameObject = null; 
                 DestroyImmediate(_nld.gameObject);
 
                 Debug.Log("SAVED");
