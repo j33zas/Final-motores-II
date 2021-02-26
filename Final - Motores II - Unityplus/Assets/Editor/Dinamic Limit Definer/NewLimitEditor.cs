@@ -21,11 +21,14 @@ public class NewLimitEditor : Editor
 
     LimitSaver scriptable;
     List<Vector3> newSaverOfLimits;
+
+    GUIStyle style;
     
     
     private void OnEnable()
     {
         _nld = (NewLimitDefiner)target;
+        style.alignment = TextAnchor.MiddleCenter;
     }
 
     public override void OnInspectorGUI()
@@ -49,28 +52,32 @@ public class NewLimitEditor : Editor
                 var current = Instantiate(_nld.Prefab, item, Quaternion.identity, _nld.transform);                      
                 myNodes.Add(current);            
             }
-
-            /*if (_nld.transform.childCount > newSaverOfLimits.Count)
-            {
-                DestroyImmediate(myNodes[myNodes.Count - 1]);
-            }*/
         }
+        EditorGUIUtility.labelWidth = 15;
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.LabelField("Axis");
+        EditorGUILayout.LabelField("X", style);
+        EditorGUILayout.LabelField("Y", style);
+        EditorGUILayout.LabelField("Z", style);
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
 
         for (int i = 0; i < newSaverOfLimits.Count; i++)
         {
-
             EditorGUIUtility.labelWidth = 15;
+
             EditorGUILayout.BeginHorizontal();
+
             EditorGUILayout.LabelField("Nodo " + i);
-            EditorGUILayout.LabelField(newSaverOfLimits[i].x.ToString());
-            EditorGUILayout.LabelField(newSaverOfLimits[i].y.ToString());
-            EditorGUILayout.LabelField(newSaverOfLimits[i].z.ToString());
+            EditorGUILayout.LabelField(newSaverOfLimits[i].x.ToString(), style);
+            EditorGUILayout.LabelField(newSaverOfLimits[i].y.ToString(), style);
+            EditorGUILayout.LabelField(newSaverOfLimits[i].z.ToString(), style);
             if(GUILayout.Button("Edit"))
-            {
+                Selection.activeGameObject = myNodes[i];
 
-            }
             EditorGUILayout.EndHorizontal();
-
+            EditorGUI.DrawRect(GUILayoutUtility.GetRect(100, 1), Color.grey);
             EditorGUIUtility.labelWidth = 0;
         }
     }
@@ -155,17 +162,13 @@ public class NewLimitEditor : Editor
             {
                 if(_nld.gameObject != null)
                 {
-                    //Selection.activeGameObject = null;
                     DestroyImmediate(_nld.gameObject);
-                    Debug.Log("Nevermind");
                 }
             }
         }
 
         if (GUI.Button(new Rect(v.width - 925, v.height - 70, 120, 50), "Flat all"))
         {
-            Debug.Log("Flatenned");
-
             for (int i = 0; i < _nld.transform.childCount; i++)
             {
                 var objCurrent = _nld.transform.GetChild(i).gameObject;
